@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyJetpck</string>
+    <string name="score">分数：%s</string>
 </resources>

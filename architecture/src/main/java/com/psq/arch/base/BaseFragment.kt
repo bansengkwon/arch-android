@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.psq.arch.impl.IComponent
+import com.psq.arch.impl.ArchComponent
 
 /**
  * @author : Anthony.Pan
@@ -15,7 +15,7 @@ import com.psq.arch.impl.IComponent
  * @desc   :
  */
 abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel> : Fragment(),
-    IComponent<DB, VM> {
+    ArchComponent<DB, VM> {
 
     override val mDataBinding: DB by lazy { getDataBinding(this) }
     override val mViewModel: VM by lazy { getViewModel(this) }
@@ -31,7 +31,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel> : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        register(lifecycleScope, this)
+        bindArchComponent(lifecycleScope, this)
     }
 
 }

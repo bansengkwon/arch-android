@@ -83,4 +83,6 @@ dependencies {
     api 'com.github.getActivity:GsonFactory:6.0'
     //UI状态布局 https://github.com/gturedi/StatefulLayout#usage
     api 'com.github.gturedi:StatefulLayout:1.2.2'
+    //第三方库Retrofit+Flow解析
+    api 'com.github.zyj1609wz:RetrofitFlowCallAdapter:1.1.0'
 }

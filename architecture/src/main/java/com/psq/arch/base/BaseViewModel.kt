@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.psq.arch.impl.IStateView
-import com.psq.arch.net.execute
+import com.psq.arch.net.ApiResponse
+import com.psq.arch.net.callFlow
+import com.psq.arch.net.request
 import com.psq.arch.state.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -39,30 +41,29 @@ abstract class BaseViewModel : ViewModel(), IStateView {
         viewState.value = ErrorViewState(throwable)
     }
 
+    suspend fun <T> ApiResponse<T>.response(success: (T?) -> Unit) {
+        this@response.request(
+            start = {
+                showLoadingView("加载中...")
+            }, failure = {
+                showErrorView(it)
+            }, success = {
+                showContentView()
+                success(it)
+            }
+        )
+    }
 
-    fun <T> Flow<Result<T>>.request(
-        showStateView: Boolean = true,
-        block: (T) -> Unit
-    ) {
-        viewModelScope.launch {
-            this@request.execute(
-                start = {
-                    if (showStateView) {
-                        showLoadingView("加载中...")
-                    }
-                },
-                success = { result ->
-                    if (showStateView) {
-                        showContentView()
-                    }
-                    block.invoke(result)
-                },
-                failure = { e ->
-                    if (showStateView) {
-                        showErrorView(e)
-                    }
-                }
-            )
-        }
+    suspend fun <T> T.execute(success: (T) -> Unit) {
+        this@execute.callFlow(
+            start = {
+                showLoadingView("加载中...")
+            }, failure = {
+                showErrorView(it)
+            }, success = {
+                showContentView()
+                success(it)
+            }
+        )
     }
 }

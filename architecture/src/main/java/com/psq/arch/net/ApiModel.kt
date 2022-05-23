@@ -6,5 +6,13 @@ package com.psq.arch.net
  * @desc   :
  */
 
-data class ApiResp<out Result, out Meta>(val data: Result?, val meta: Meta?)
+
+data class ApiResponse<T>(
+    val data: T?,
+    val code: Int?,
+    val message: String?
+) {
+    val isSuccess: Boolean
+        get() = code == 200
+}
 

@@ -1,9 +1,10 @@
 package com.psq.myjetpck.repository
 
 import com.psq.myjetpck.repository.remote.TestApi
-import com.psq.myjetpck.model.TestBean
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 /**
  * @author : Anthony.Pan
@@ -14,10 +15,5 @@ import kotlinx.coroutines.flow.flow
 class TestRepository(val api: TestApi) {
 
 
-    fun getUsers(q: String): Flow<Result<TestBean>> {
-        return flow {
-            val result = api.getUsers(q)
-            emit(Result.success(result))
-        }
-    }
+    suspend fun getUsers(q: String) = api.getUsers(q)
 }

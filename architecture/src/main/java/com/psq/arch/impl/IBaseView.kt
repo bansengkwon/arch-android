@@ -3,6 +3,7 @@ package com.psq.arch.impl
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.gturedi.views.StatefulLayout
+import com.psq.arch.net.parseErrorMessage
 
 /**
  * @author : Anthony.Pan
@@ -43,7 +44,7 @@ interface IBaseView : IStateView {
     override fun showErrorView(throwable: Throwable) {
         getStatefulLayout()?.let {
             if (isVisibleStatefulLayout()) {
-                it.showError(throwable.message) {
+                it.showError(throwable.parseErrorMessage()) {
                     onErrorStateClickListener(it)
                 }
             }

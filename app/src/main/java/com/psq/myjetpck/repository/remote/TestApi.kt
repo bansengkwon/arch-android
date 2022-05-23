@@ -1,6 +1,7 @@
 package com.psq.myjetpck.repository.remote
 
 import com.psq.myjetpck.model.TestBean
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 

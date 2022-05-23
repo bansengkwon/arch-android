@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.psq.arch.impl.IComponent
+import com.gyf.immersionbar.ImmersionBar
+import com.psq.arch.impl.ArchComponent
 import com.psq.arch.impl.IBaseView
+import com.psq.architecture.R
 
 /**
  * @author : Anthony.Pan
@@ -13,7 +15,7 @@ import com.psq.arch.impl.IBaseView
  * @desc   :
  */
 abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> :
-    AppCompatActivity(), IBaseView, IComponent<DB, VM> {
+    AppCompatActivity(), IBaseView, ArchComponent<DB, VM> {
 
     override val mDataBinding: DB by lazy { getDataBinding(this) }
 
@@ -22,6 +24,18 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        register(lifecycleScope, this)
+        bindArchComponent(lifecycleScope, this)
+        initImmersionBar()
     }
+
+    private fun initImmersionBar() {
+        ImmersionBar.with(this)
+            .statusBarDarkFont(isStatusBarDarkFont())   //状态栏字体是深色，不写默认为亮色
+            .navigationBarColor(R.color.white)
+            .autoNavigationBarDarkModeEnable(true, 0.2f)
+            .init()
+    }
+
+    fun isStatusBarDarkFont(): Boolean = true
+
 }

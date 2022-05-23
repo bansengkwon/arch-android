@@ -1,10 +1,8 @@
 package com.psq.arch.net
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.TimeoutException
@@ -30,22 +28,38 @@ fun Throwable.parseErrorMessage(): String {
     }
 }
 
-suspend fun <T> Flow<Result<T>>.execute(
+suspend fun <T> T.callFlow(
     start: () -> Unit,
-    success: (T) -> Unit,
-    failure: (Throwable) -> Unit
-) {
-    this.flowOn(Dispatchers.IO)
-        .onStart {
-            start.invoke()
-        }.catch { e ->
-            failure.invoke(e)
-        }.collect {
-            it.onSuccess {
-                success.invoke(it)
-            }
-            it.onFailure {
-                failure.invoke(it)
-            }
+    failure: (Throwable) -> Unit,
+    success: (T) -> Unit
+) = flow {
+    emit(this@callFlow)
+}.flowOn(Dispatchers.IO)
+    .onStart {
+        start.invoke()
+    }
+    .catch { e ->
+        failure.invoke(e)
+    }.collect {
+        success(it)
+    }
+
+
+suspend fun <T> ApiResponse<T>.request(
+    start: () -> Unit,
+    failure: (Throwable) -> Unit,
+    success: (T?) -> Unit
+) = callFlow(
+    start = {
+        start.invoke()
+    },
+    failure = {
+        failure.invoke(it)
+    },
+    success = {
+        if (it.isSuccess) {
+            success.invoke(it.data)
+        } else {
+            failure.invoke(Throwable(it.message))
         }
-}
+    })

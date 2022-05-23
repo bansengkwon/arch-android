@@ -23,7 +23,7 @@ import java.lang.reflect.ParameterizedType
  * @date   : 2022/5/21 10:48
  * @desc   :
  */
-interface IComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
+interface ArchComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
 
     val mDataBinding: DB
     val mViewModel: VM
@@ -43,7 +43,7 @@ interface IComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
         return ViewModelProvider(owner)[type[1] as Class<VM>]
     }
 
-    fun register(scope: CoroutineScope, owner: LifecycleOwner) {
+    fun bindArchComponent(scope: CoroutineScope, owner: LifecycleOwner) {
         bindViewModelToDataBinding()
         observeViewModel(scope, owner)
     }
