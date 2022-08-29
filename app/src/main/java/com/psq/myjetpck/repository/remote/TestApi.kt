@@ -13,5 +13,5 @@ import retrofit2.http.Query
 interface TestApi {
 
     @GET("search/users")
-    suspend fun getUsers(@Query("q") q: String): TestBean
+    fun getUsers(@Query("q") q: String): Flow<TestBean>
 }

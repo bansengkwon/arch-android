@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding = true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //lottie:https://github.com/airbnb/lottie-android
+    api 'com.airbnb.android:lottie:5.2.0'
+
+    //UI状态布局 https://github.com/gturedi/StatefulLayout#usage
+//    api 'com.github.gturedi:StatefulLayout:1.2.2'
+
+    //沉浸式状态栏
+    // 基础依赖包，必须要依赖
+    api "com.geyifeng.immersionbar:immersionbar:$immersionbarVersion"
+    // kotlin扩展（可选）
+    api "com.geyifeng.immersionbar:immersionbar-ktx:$immersionbarVersion"
+    // fragment快速实现（可选）已废弃
+    api "com.geyifeng.immersionbar:immersionbar-components:$immersionbarVersion"
+    //刷新
+    api 'io.github.scwang90:refresh-layout-kernel:2.0.5'      //核心必须依赖
+    api 'io.github.scwang90:refresh-header-classics:2.0.5'    //经典刷新头
+    api 'io.github.scwang90:refresh-footer-classics:2.0.5'    //经典加载
+}

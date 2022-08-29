@@ -7,12 +7,35 @@ package com.psq.arch.net
  */
 
 
-data class ApiResponse<T>(
+class NetResult<T>(
     val data: T?,
-    val code: Int?,
-    val message: String?
+    val requestId: String?,
+    val time: String?,
+    val status: String?,
+    val error: NetError?,
+    val orderId: String?
 ) {
     val isSuccess: Boolean
-        get() = code == 200
+        get() {
+            return status == "success"
+        }
 }
+
+data class NetError(
+    val code: Int?,
+    val message: String?
+)
+
+abstract class PageResultBase<T, E> {
+    var data: ArrayList<T>? = null
+    var meta: E? = null
+}
+
+open class PageResult<T> : PageResultBase<T, MetaEntity>() {
+    val hasMore: Boolean
+        get() {
+            return meta != null && meta?.hasMore ?: false
+        }
+}
+
 

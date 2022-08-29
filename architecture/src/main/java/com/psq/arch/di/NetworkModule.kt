@@ -2,6 +2,7 @@ package com.psq.arch.di
 
 import com.hjq.gson.factory.GsonFactory
 import com.psq.arch.net.NetworkParam
+import com.zyj.retrofit.adapter.FlowCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +50,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(param.baseUrl)
+            .addCallAdapterFactory(FlowCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonFactory.getSingletonGson()))
             .build()
     }

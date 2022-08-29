@@ -1,7 +1,7 @@
 package com.psq.myjetpck.di
 
-import com.psq.arch.net.NetworkParam
 import com.psq.arch.net.HttpsUtils
+import com.psq.arch.net.NetworkParam
 import com.psq.myjetpck.BuildConfig
 import com.psq.myjetpck.repository.TestRepository
 import com.psq.myjetpck.repository.remote.TestApi

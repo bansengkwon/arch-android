@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.fansmall.helper.SimpleHUD
 import com.gyf.immersionbar.ImmersionBar
 import com.psq.arch.impl.ArchComponent
 import com.psq.arch.impl.IBaseView
@@ -15,7 +16,7 @@ import com.psq.architecture.R
  * @desc   :
  */
 abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> :
-    AppCompatActivity(), IBaseView, ArchComponent<DB, VM> {
+    AppCompatActivity(), ArchComponent<DB, VM> {
 
     override val mDataBinding: DB by lazy { getDataBinding(this) }
 
@@ -38,4 +39,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> :
 
     fun isStatusBarDarkFont(): Boolean = true
 
+    override fun showLoadingDialog(charSequence: CharSequence?) {
+        SimpleHUD.show(this)
+    }
 }

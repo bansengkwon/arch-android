@@ -2,6 +2,7 @@ package com.psq.myjetpck.view
 
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.psq.arch.base.BaseFragment
 import com.psq.myjetpck.R
 import com.psq.myjetpck.databinding.FragmentMainBinding
@@ -37,7 +38,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             R.layout.item_test_layout,
             BR.model,
             { _, i, item ->
-                showToastView("点击了${i},id = ${item.id}")
+                showToast("点击了${i},id = ${item.id}")
             }
         )
         mDataBinding.rvItems.adapter = adapter
@@ -49,8 +50,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
 
     override fun getContentView(): Int = R.layout.fragment_main
-    override fun getStatefulLayout(): StatefulLayout = mDataBinding.statefulLayout
-    override fun isVisibleStatefulLayout(): Boolean = true
+    override fun getStatefulLayout(): StatefulLayout = mDataBinding.statefulLayout.also {LogUtils.d("-------buju:${it}")  }
     override fun onErrorStateClickListener(view: View) {
         mViewModel.getUsers()
     }

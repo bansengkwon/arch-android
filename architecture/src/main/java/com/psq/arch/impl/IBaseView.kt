@@ -2,6 +2,7 @@ package com.psq.arch.impl
 
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
+import com.fansmall.helper.SimpleHUD
 import com.gturedi.views.StatefulLayout
 import com.psq.arch.net.parseErrorMessage
 
@@ -11,43 +12,49 @@ import com.psq.arch.net.parseErrorMessage
  * @desc   :
  */
 interface IBaseView : IStateView {
-
+    /**
+     * 获取布局
+     * @return Int
+     */
     fun getContentView(): Int
+
+    /**
+     *
+     * @return StatefulLayout?
+     */
     fun getStatefulLayout(): StatefulLayout?
-    fun isVisibleStatefulLayout(): Boolean
+
+    /**
+     * 来自StatefulLayout错误展示页面的点击监听操作
+     * @param view View
+     */
     fun onErrorStateClickListener(view: View)
 
-    override fun showToastView(charSequence: CharSequence) {
+    override fun showToast(charSequence: CharSequence) {
         ToastUtils.showShort(charSequence)
     }
 
     override fun showLoadingView(charSequence: CharSequence?) {
         getStatefulLayout()?.let {
-            if (isVisibleStatefulLayout()) {
-                if (charSequence != null) {
-                    it.showLoading(charSequence.toString())
-                } else {
-                    it.showLoading()
-                }
+            if (charSequence != null) {
+                it.showLoading(charSequence.toString())
+            } else {
+                it.showLoading()
             }
         }
     }
 
     override fun showContentView() {
-        getStatefulLayout()?.let {
-            if (isVisibleStatefulLayout()) {
-                it.showContent()
-            }
-        }
+        getStatefulLayout()?.showContent()
     }
 
     override fun showErrorView(throwable: Throwable) {
-        getStatefulLayout()?.let {
-            if (isVisibleStatefulLayout()) {
-                it.showError(throwable.parseErrorMessage()) {
-                    onErrorStateClickListener(it)
-                }
-            }
+        getStatefulLayout()?.showError(throwable.parseErrorMessage()) {
+            onErrorStateClickListener(it)
         }
+    }
+
+    override fun hideLoadingDialog() {
+        SimpleHUD.dismiss()
     }
 }

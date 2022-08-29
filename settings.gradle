@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "MyJetpck"
 include ':app'
 include ':architecture'
+include ':widget'

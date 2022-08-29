@@ -61,13 +61,6 @@ dependencies {
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
     //Paging3
     api 'androidx.paging:paging-runtime:3.1.1'
-    //沉浸式状态栏
-    // 基础依赖包，必须要依赖
-    api "com.geyifeng.immersionbar:immersionbar:$immersionbarVersion"
-    // kotlin扩展（可选）
-    api "com.geyifeng.immersionbar:immersionbar-ktx:$immersionbarVersion"
-    // fragment快速实现（可选）已废弃
-    api "com.geyifeng.immersionbar:immersionbar-components:$immersionbarVersion"
     //retrofit
     api "com.squareup.retrofit2:retrofit:$retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -81,8 +74,9 @@ dependencies {
     api "io.coil-kt:coil-gif:$coilVersion"
     // Gson 解析容错：https://github.com/getActivity/GsonFactory
     api 'com.github.getActivity:GsonFactory:6.0'
-    //UI状态布局 https://github.com/gturedi/StatefulLayout#usage
-    api 'com.github.gturedi:StatefulLayout:1.2.2'
     //第三方库Retrofit+Flow解析
     api 'com.github.zyj1609wz:RetrofitFlowCallAdapter:1.1.0'
+
+    api project(path: ':widget')
+
 }

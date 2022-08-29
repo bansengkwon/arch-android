@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">widget</string>
+
+    <string name="stfErrorMessage">发生错误，请重试</string>
+    <string name="stfOfflineMessage">请检查网络连接</string>
+    <string name="stfLocationOffMessage">请打开定位</string>
+    <string name="stfEmptyMessage">暂无内容</string>
+    <string name="stfLoadingMessage">加载中..</string>
+    <string name="stfButtonText">重新加载</string>
+</resources>

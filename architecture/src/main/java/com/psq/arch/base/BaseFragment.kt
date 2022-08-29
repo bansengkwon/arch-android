@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.fansmall.helper.SimpleHUD
 import com.psq.arch.impl.ArchComponent
 
 /**
@@ -32,6 +33,10 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel> : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindArchComponent(lifecycleScope, this)
+    }
+
+    override fun showLoadingDialog(charSequence: CharSequence?) {
+        SimpleHUD.show(requireActivity())
     }
 
 }

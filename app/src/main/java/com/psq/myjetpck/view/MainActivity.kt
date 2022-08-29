@@ -2,6 +2,7 @@ package com.psq.myjetpck.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import com.psq.arch.base.BaseActivity
 import com.psq.myjetpck.databinding.ActivityMainBinding
 import com.gturedi.views.StatefulLayout
@@ -22,8 +23,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityModel>() {
     }
 
     override fun getContentView(): Int = R.layout.activity_main
+
     override fun getStatefulLayout(): StatefulLayout? = null
-    override fun isVisibleStatefulLayout(): Boolean = true
     override fun onErrorStateClickListener(view: View) {
     }
 }

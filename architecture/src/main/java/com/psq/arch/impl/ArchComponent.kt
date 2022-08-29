@@ -8,10 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.psq.arch.base.BaseViewModel
-import com.psq.arch.state.ContentViewState
-import com.psq.arch.state.ErrorViewState
-import com.psq.arch.state.LoadingViewState
-import com.psq.arch.state.NothingViewState
+import com.psq.arch.state.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Method
@@ -62,11 +59,30 @@ interface ArchComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
     }
 
     private fun observeViewModel(scope: CoroutineScope, owner: LifecycleOwner) {
-        mViewModel.showToast.observe(owner) {
-            showToastView(it)
+        //toast
+        mViewModel.mShowToast.observe(owner) {
+            showToast(it)
         }
+        //加载对话框
         scope.launch {
-            mViewModel.viewState.collect {
+            mViewModel.mLoadingDialogState.collect {
+                when (it) {
+                    is ShowLoadingDialogState -> {
+                        showLoadingDialog(it.charSequence)
+                    }
+
+                    is HideLoadingDialogState -> {
+                        hideLoadingDialog()
+                    }
+
+                    is NothingViewState -> {}
+                    else -> {}
+                }
+            }
+        }
+        //状态布局
+        scope.launch {
+            mViewModel.mStatefulLayout.collect {
                 when (it) {
                     is LoadingViewState -> {
                         showLoadingView(it.charSequence)
@@ -78,6 +94,7 @@ interface ArchComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
                         showErrorView(it.throwable)
                     }
                     is NothingViewState -> {}
+                    else -> {}
                 }
             }
         }
