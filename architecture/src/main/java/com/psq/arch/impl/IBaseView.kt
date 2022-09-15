@@ -30,7 +30,7 @@ interface IBaseView : IStateView {
      */
     fun onErrorStateClickListener(view: View)
 
-    override fun showToast(charSequence: CharSequence) {
+    override fun showToast(charSequence: CharSequence?) {
         ToastUtils.showShort(charSequence)
     }
 

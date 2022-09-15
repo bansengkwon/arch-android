@@ -10,6 +10,6 @@ sealed class TransitionStyle
 
 object NothingStyle : TransitionStyle()
 
-data class LoadingDialogStyle(val charSequence: CharSequence? = null) : TransitionStyle()
+object LoadingDialogStyle : TransitionStyle()
 
-data class StateLayoutStyle(val charSequence: CharSequence? = null) : TransitionStyle()
+object StateLayoutStyle : TransitionStyle()

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.psq.arch.base.BaseViewModel
 import com.psq.arch.state.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
@@ -61,41 +60,40 @@ interface ArchComponent<DB : ViewDataBinding, VM : BaseViewModel> : IBaseView {
     private fun observeViewModel(scope: CoroutineScope, owner: LifecycleOwner) {
         //toast
         mViewModel.mShowToast.observe(owner) {
-            showToast(it)
+            it?.let {
+                showToast(it)
+            }
         }
+
         //加载对话框
-        scope.launch {
-            mViewModel.mLoadingDialogState.collect {
-                when (it) {
-                    is ShowLoadingDialogState -> {
-                        showLoadingDialog(it.charSequence)
-                    }
-
-                    is HideLoadingDialogState -> {
-                        hideLoadingDialog()
-                    }
-
-                    is NothingViewState -> {}
-                    else -> {}
+        mViewModel.mLoadingDialogState.observe(owner) {
+            when (it) {
+                is ShowLoadingDialogState -> {
+                    showLoadingDialog(it.charSequence)
                 }
+
+                is HideLoadingDialogState -> {
+                    hideLoadingDialog()
+                }
+
+                is NothingViewState -> {}
+                else -> {}
             }
         }
         //状态布局
-        scope.launch {
-            mViewModel.mStatefulLayout.collect {
-                when (it) {
-                    is LoadingViewState -> {
-                        showLoadingView(it.charSequence)
-                    }
-                    is ContentViewState -> {
-                        showContentView()
-                    }
-                    is ErrorViewState -> {
-                        showErrorView(it.throwable)
-                    }
-                    is NothingViewState -> {}
-                    else -> {}
+        mViewModel.mStatefulLayout.observe(owner) {
+            when (it) {
+                is LoadingViewState -> {
+                    showLoadingView(it.charSequence)
                 }
+                is ContentViewState -> {
+                    showContentView()
+                }
+                is ErrorViewState -> {
+                    showErrorView(it.throwable)
+                }
+                is NothingViewState -> {}
+                else -> {}
             }
         }
     }

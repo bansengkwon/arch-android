@@ -3,12 +3,12 @@ package com.psq.arch.net;
 public class MetaEntity {
 
     private Integer total;
-    private Integer currentPage;
-    private Integer perPage;
-    private Integer lastPage;
+    private Integer current_page;
+    private Integer per_page;
+    private Integer last_page;
 
     public Boolean getHasMore() {
-        return lastPage > currentPage;
+        return last_page > current_page;
     }
 
     public Integer getTotal() {
@@ -19,27 +19,27 @@ public class MetaEntity {
         this.total = total;
     }
 
-    public Integer getCurrentPage() {
-        return currentPage;
+    public Integer getCurrent_page() {
+        return current_page;
     }
 
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
+    public void setCurrent_page(Integer current_page) {
+        this.current_page = current_page;
     }
 
-    public Integer getPerPage() {
-        return perPage;
+    public Integer getPer_page() {
+        return per_page;
     }
 
-    public void setPerPage(Integer perPage) {
-        this.perPage = perPage;
+    public void setPer_page(Integer per_page) {
+        this.per_page = per_page;
     }
 
-    public Integer getLastPage() {
-        return lastPage;
+    public Integer getLast_page() {
+        return last_page;
     }
 
-    public void setLastPage(Integer lastPage) {
-        this.lastPage = lastPage;
+    public void setLast_page(Integer last_page) {
+        this.last_page = last_page;
     }
 }

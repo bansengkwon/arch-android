@@ -10,13 +10,13 @@ interface IStateView {
      * 显示toast
      * @param charSequence CharSequence
      */
-    fun showToast(charSequence: CharSequence)
+    fun showToast(charSequence: CharSequence? = null)
 
     /**
      * 显示加载对话框
      * @param charSequence CharSequence
      */
-    fun showLoadingDialog(charSequence: CharSequence?)
+    fun showLoadingDialog(charSequence: CharSequence? = null)
 
     /**
      *隐藏加载对话框
@@ -27,7 +27,7 @@ interface IStateView {
      * 显示状态布局（StatefulLayout）加载
      * @param charSequence CharSequence?
      */
-    fun showLoadingView(charSequence: CharSequence?)
+    fun showLoadingView(charSequence: CharSequence? = null)
 
     /**
      * 显示状态布局(StatefulLayout)内容

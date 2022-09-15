@@ -43,14 +43,14 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         )
         mDataBinding.rvItems.adapter = adapter
 
-        mViewModel.result.observe(viewLifecycleOwner) {
+        mViewModel.data.observe(viewLifecycleOwner) {
             adapter.updateData(it.items)
         }
     }
 
 
     override fun getContentView(): Int = R.layout.fragment_main
-    override fun getStatefulLayout(): StatefulLayout = mDataBinding.statefulLayout.also {LogUtils.d("-------buju:${it}")  }
+    override fun getStatefulLayout(): StatefulLayout = mDataBinding.statefulLayout
     override fun onErrorStateClickListener(view: View) {
         mViewModel.getUsers()
     }

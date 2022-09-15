@@ -38,4 +38,12 @@ open class PageResult<T> : PageResultBase<T, MetaEntity>() {
         }
 }
 
+open class PageMetaResult<T, Meta : MetaEntity> : PageResultBase<T, Meta>() {
+
+    val hasMore: Boolean
+        get() {
+            return meta != null && meta?.hasMore ?: false
+        }
+}
+
 

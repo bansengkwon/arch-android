@@ -76,6 +76,9 @@ dependencies {
     api 'com.github.getActivity:GsonFactory:6.0'
     //第三方库Retrofit+Flow解析
     api 'com.github.zyj1609wz:RetrofitFlowCallAdapter:1.1.0'
+    //https://github.com/alibaba/fastjson
+    api 'com.alibaba:fastjson:1.2.76'
+    api 'io.github.jeremyliao:live-event-bus-x:1.8.0'
 
     api project(path: ':widget')
 

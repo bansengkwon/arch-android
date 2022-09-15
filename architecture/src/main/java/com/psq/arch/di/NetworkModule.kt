@@ -24,6 +24,9 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
+
+
+
     @Singleton
     @Provides
     fun provideOkHttpClient(param: NetworkParam): OkHttpClient {
