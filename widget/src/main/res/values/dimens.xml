@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <item name="action_bar_size" type="dimen" tools:override="true">60dp</item>
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp12">12sp</dimen>
+</resources>
